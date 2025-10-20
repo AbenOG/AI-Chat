@@ -35,7 +35,15 @@ Full-stack TypeScript application: React + Vite frontend with an Express backend
 - **Math Rendering**: LaTeX/KaTeX support for mathematical notation
 - **Markdown Support**: Full GFM (GitHub Flavored Markdown)
 - **Message Editing**: Quote and reference previous messages
-- **Artifact Viewer**: Split-pane view for code, documents, and visualizations
+- **Split-Pane Artifacts**: Side-by-side view for generated content
+
+### 🎨 Interactive Artifacts
+- **HTML/CSS/JS Rendering**: Live preview of web pages with download capability
+- **Python Execution**: Run Python code in-browser with Pyodide (no server needed)
+- **Mermaid Diagrams**: Render flowcharts, sequence diagrams, and more
+- **LaTeX Math**: Display complex mathematical equations with KaTeX
+- **Syntax Highlighting**: Beautiful code display for all artifact types
+- **Sandboxed Execution**: Safe, isolated environment for running code
 
 ### 🔐 Security & Privacy
 - **User Authentication**: Secure JWT-based auth with HTTP-only cookies
@@ -85,6 +93,10 @@ Full-stack TypeScript application: React + Vite frontend with an Express backend
 ### Accessibility Features
 ![Font Customization](docs/images/accessbility_fontsize_font_ui_showcase.png)
 *Customize font size and style for better readability*
+
+### Interactive Artifacts
+![Artifact Preview](docs/images/artifact_preview_html_with_interactive_charts.png)
+*Live HTML/CSS/JS rendering, Python execution, Mermaid diagrams, and LaTeX math in split-pane view*
 
 ## Quick Start
 
