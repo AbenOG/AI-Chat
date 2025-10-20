@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback } from 'react'
-import { Upload, Trash2, Loader2, CheckCircle, XCircle, Clock, User, Cpu, Database, Eye, EyeOff, Check, ArrowLeft, AlertCircle, X, Type } from 'lucide-react'
+import { Upload, Trash2, Loader2, CheckCircle, XCircle, Clock, User, Cpu, Database, Eye, EyeOff, Check, ArrowLeft, AlertCircle, X, Type, Server } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import { api } from '@/services/api'
+import { MCPSettings } from '@/components/MCPSettings'
 
 interface Document {
     id: number
@@ -102,7 +103,7 @@ function getStatusIcon(status: string) {
 
 export function SettingsPage({ selectedModel, onModelChange, onClose }: SettingsPageProps) {
     const { user } = useAuth()
-    const [activeTab, setActiveTab] = useState<'profile' | 'provider' | 'embeddings' | 'models' | 'documents' | 'display'>('profile')
+    const [activeTab, setActiveTab] = useState<'profile' | 'provider' | 'embeddings' | 'models' | 'documents' | 'mcp' | 'display'>('profile')
     
     // Document state
     const [documents, setDocuments] = useState<Document[]>([])
@@ -149,11 +150,11 @@ export function SettingsPage({ selectedModel, onModelChange, onClose }: Settings
     // Keyboard shortcuts
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            // Alt + 1-6 for tab navigation
+            // Alt + 1-7 for tab navigation
             if (e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey) {
-                const tabs: Array<'profile' | 'provider' | 'embeddings' | 'models' | 'documents' | 'display'> = ['profile', 'provider', 'embeddings', 'models', 'documents', 'display']
+                const tabs: Array<'profile' | 'provider' | 'embeddings' | 'models' | 'documents' | 'mcp' | 'display'> = ['profile', 'provider', 'embeddings', 'models', 'documents', 'mcp', 'display']
                 const key = parseInt(e.key)
-                if (key >= 1 && key <= 6) {
+                if (key >= 1 && key <= 7) {
                     e.preventDefault()
                     setActiveTab(tabs[key - 1])
                 }
@@ -638,6 +639,22 @@ export function SettingsPage({ selectedModel, onModelChange, onClose }: Settings
                             </button>
                             
                             <button
+                                onClick={() => setActiveTab('mcp')}
+                                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 ${
+                                    activeTab === 'mcp'
+                                        ? 'bg-white/10 text-white'
+                                        : 'text-white/60 hover:bg-white/5 hover:text-white'
+                                }`}
+                                aria-current={activeTab === 'mcp' ? 'page' : undefined}
+                            >
+                                <div className="flex items-center gap-3">
+                                    <Server className="w-5 h-5" />
+                                    <span className="font-medium">MCP Servers</span>
+                                </div>
+                                <span className="text-xs text-white/40">Alt+6</span>
+                            </button>
+                            
+                            <button
                                 onClick={() => setActiveTab('display')}
                                 className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-colors focus:outline-none focus:ring-2 focus:ring-white/30 ${
                                     activeTab === 'display'
@@ -650,7 +667,7 @@ export function SettingsPage({ selectedModel, onModelChange, onClose }: Settings
                                     <Type className="w-5 h-5" />
                                     <span className="font-medium">Display</span>
                                 </div>
-                                <span className="text-xs text-white/40">Alt+6</span>
+                                <span className="text-xs text-white/40">Alt+7</span>
                             </button>
                         </div>
                     </nav>
@@ -1240,6 +1257,11 @@ export function SettingsPage({ selectedModel, onModelChange, onClose }: Settings
                                         </div>
                                     )}
                                 </div>
+                            )}
+
+                            {/* MCP Servers Tab */}
+                            {activeTab === 'mcp' && (
+                                <MCPSettings />
                             )}
 
                             {/* Display Tab */}
