@@ -60,6 +60,32 @@ Full-stack TypeScript application: React + Vite frontend with an Express backend
 - **Error Handling**: Comprehensive error management
 - **CI/CD Ready**: GitHub Actions workflow included
 
+## Screenshots
+
+### Welcome Screen
+![Welcome Screen](docs/images/welcome_screen.png)
+*Clean, modern interface with animated background*
+
+### Chat Modes
+![Chat Modes](docs/images/chat_modes_showcase.png)
+*Switch between Chat, Research, and Study modes seamlessly*
+
+### AI Provider Selection
+![AI Providers](docs/images/ai_providers_dropdown_showcase_ui.png)
+*Choose from 40+ models across multiple providers*
+
+### Message Features
+![Message Bubble](docs/images/ask_about_this_and_copy_messag_bubble_showcase_ui.png)
+*Copy messages, ask follow-ups, and interact with AI responses*
+
+### Document Library
+![Document Library](docs/images/document_library_ui_showcase.png)
+*Upload and manage documents with RAG capabilities*
+
+### Accessibility Features
+![Font Customization](docs/images/accessbility_fontsize_font_ui_showcase.png)
+*Customize font size and style for better readability*
+
 ## Quick Start
 
 ### 1. Install Dependencies
