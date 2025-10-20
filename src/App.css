@@ -1,0 +1,709 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600;7..72,700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/opendyslexic@1.0.3/opendyslexic-regular.min.css');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.10 0 0);
+  --foreground: oklch(0.95 0.01 240);
+  --card: oklch(0.06 0.01 240);
+  --card-foreground: oklch(0.95 0.01 240);
+  --popover: oklch(0.06 0.01 240);
+  --popover-foreground: oklch(0.95 0.01 240);
+  --primary: oklch(0.95 0.01 240);
+  --primary-foreground: oklch(0.04 0.01 240);
+  --secondary: oklch(0.12 0.01 240);
+  --secondary-foreground: oklch(0.95 0.01 240);
+  --muted: oklch(0.12 0.01 240);
+  --muted-foreground: oklch(0.65 0.01 240);
+  --accent: oklch(0.12 0.01 240);
+  --accent-foreground: oklch(0.95 0.01 240);
+  --destructive: oklch(0.65 0.15 20);
+  --border: oklch(0.15 0.01 240 / 30%);
+  --input: oklch(0.12 0.01 240);
+  --ring: oklch(0.65 0.01 240);
+  --sidebar: oklch(0.10 0 0);
+  --sidebar-foreground: oklch(0.95 0.01 240);
+  --sidebar-primary: oklch(0.95 0.01 240);
+  --sidebar-primary-foreground: oklch(0.04 0.01 240);
+  --sidebar-accent: oklch(0.12 0.01 240);
+  --sidebar-accent-foreground: oklch(0.95 0.01 240);
+  --sidebar-border: oklch(0.15 0.01 240 / 30%);
+  --sidebar-ring: oklch(0.65 0.01 240);
+
+  /* Custom AI chat colors */
+  --color-jet: oklch(0.10 0 0);
+  --color-deep: oklch(0.06 0.01 240);
+  --color-medium: oklch(0.12 0.01 240);
+  --color-light: oklch(0.18 0.01 240);
+  --color-silver-gradient: linear-gradient(135deg, oklch(0.95 0.01 240) 0%, oklch(0.85 0.01 240) 50%, oklch(0.75 0.01 240) 100%);
+  --color-silver-text: oklch(0.95 0.01 240);
+  --color-dim-silver: oklch(0.65 0.01 240);
+  --color-faint-silver: oklch(0.45 0.01 240);
+  --color-white: oklch(1 0 0);
+  --color-accent-white: oklch(1 0 0 / 90%);
+  --color-glass-white: oklch(1 0 0 / 15%);
+}
+
+.dark {
+  --background: oklch(0.10 0 0);
+  --foreground: oklch(0.95 0.01 240);
+  --card: oklch(0.06 0.01 240);
+  --card-foreground: oklch(0.95 0.01 240);
+  --popover: oklch(0.06 0.01 240);
+  --popover-foreground: oklch(0.95 0.01 240);
+  --primary: oklch(0.95 0.01 240);
+  --primary-foreground: oklch(0.04 0.01 240);
+  --secondary: oklch(0.12 0.01 240);
+  --secondary-foreground: oklch(0.95 0.01 240);
+  --muted: oklch(0.12 0.01 240);
+  --muted-foreground: oklch(0.65 0.01 240);
+  --accent: oklch(0.12 0.01 240);
+  --accent-foreground: oklch(0.95 0.01 240);
+  --destructive: oklch(0.65 0.15 20);
+  --border: oklch(0.15 0.01 240 / 30%);
+  --input: oklch(0.12 0.01 240);
+  --ring: oklch(0.65 0.01 240);
+  --sidebar: oklch(0.10 0 0);
+  --sidebar-foreground: oklch(0.95 0.01 240);
+  --sidebar-primary: oklch(0.95 0.01 240);
+  --sidebar-primary-foreground: oklch(0.04 0.01 240);
+  --sidebar-accent: oklch(0.12 0.01 240);
+  --sidebar-accent-foreground: oklch(0.95 0.01 240);
+  --sidebar-border: oklch(0.15 0.01 240 / 30%);
+  --sidebar-ring: oklch(0.65 0.01 240);
+}
+
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* Custom text selection color - emphasized but readable */
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.28);
+    color: #fff;
+  }
+
+  ::-moz-selection {
+    background-color: rgba(255, 255, 255, 0.28);
+    color: #fff;
+  }
+
+  html {
+    /* Enhanced font rendering for maximum sharpness and legibility */
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+    text-rendering: optimizeLegibility;
+    font-smooth: always;
+    -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1, "cv02" 1, "cv03" 1, "cv04" 1, "cv11" 1;
+    font-weight: 400;
+    letter-spacing: -0.011em;
+  }
+}
+
+/* Custom utilities for AI chat */
+@utility scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+@utility glass-morphism {
+  backdrop-filter: blur(16px) saturate(180%);
+  background-color: oklch(1 0 0 / 10%);
+  border: 1px solid oklch(1 0 0 / 20%);
+}
+
+@utility shimmer-animation {
+  background: linear-gradient(90deg,
+      oklch(0.12 0.01 240 / 0%) 0%,
+      oklch(0.12 0.01 240 / 50%) 50%,
+      oklch(0.12 0.01 240 / 0%) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@utility typing-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+@utility typing-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: oklch(0.95 0.01 240);
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+@keyframes typing {
+
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+
+  30% {
+    transform: translateY(-0.5rem);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+  /* Hint to browser this only affects opacity */
+  will-change: opacity;
+}
+
+/* Custom scrollbar */
+@utility custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.15 0.01 240 / 30%) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: oklch(0.15 0.01 240 / 30%);
+  border-radius: 0.125rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: oklch(0.15 0.01 240 / 50%);
+}
+
+/* Responsive utilities */
+@utility mobile-sidebar-hidden {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+@utility mobile-full-width {
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@utility mobile-compact {
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+@utility mobile-text-sm {
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+  }
+}
+
+@utility mobile-text-xs {
+  @media (max-width: 768px) {
+    font-size: 0.75rem;
+  }
+}
+
+@utility mobile-pl-20 {
+  @media (max-width: 768px) {
+    padding-left: 5rem;
+  }
+}
+
+@utility mobile-pr-12 {
+  @media (max-width: 768px) {
+    padding-right: 3rem;
+  }
+}
+
+/* Shimmer Animation - Smooth gradient effect */
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.3) 0%,
+      rgba(255, 255, 255, 0.7) 45%,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 255, 255, 0.7) 55%,
+      rgba(255, 255, 255, 0.3) 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 2.5s linear infinite;
+}
+
+/* Streaming Content Styles */
+.streaming-content {
+  /* Prevent layout shift - minimal approach */
+  min-height: 1.75rem;
+}
+
+/* Streaming cursor animation - simplified */
+@keyframes blink {
+
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.streaming-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.25rem;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1px;
+  /* Only use opacity animation - no box-shadow that can trigger repaints */
+  animation: blink 1s ease-in-out infinite;
+  /* Force to own layer to prevent repaints */
+  will-change: opacity;
+}
+
+/* Minimal markdown styling - browser handles layout naturally */
+
+/* Prevent code block layout shifts */
+.streaming-content pre {
+  overflow: hidden;
+}
+
+.streaming-content pre code {
+  /* Prevent text reflow */
+  display: block;
+  white-space: pre;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* Prevent scroll-induced layout shifts */
+.messages-container {
+  /* Disable scroll anchoring - we handle it manually */
+  overflow-anchor: none;
+  /* Instant scroll during streaming, smooth otherwise */
+  scroll-behavior: auto;
+}
+
+/* Streaming placeholder - completely isolated from layout */
+.streaming-placeholder {
+  /* Critical: Contain all layout changes within this element */
+  contain: layout style paint;
+  /* Reserve space to prevent parent reflow */
+  min-height: 100px;
+  /* Create independent rendering context */
+  isolation: isolate;
+  /* Force own compositor layer */
+  will-change: contents;
+  transform: translateZ(0);
+  /* Smooth fade-in */
+  animation: fade-in 0.2s ease-in;
+}
+
+/* Typewriter cursor animation */
+.typewriter-text {
+  position: relative;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: cursor-blink 1s step-end infinite;
+  color: currentColor;
+}
+
+@keyframes cursor-blink {
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Animated border glow for input focus */
+@keyframes border-glow {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-border-glow {
+  animation: border-glow 3s ease-in-out infinite;
+}
+
+/* Smooth transitions for home to chat */
+@keyframes fade-out-up {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.95);
+  }
+}
+
+@keyframes fade-in-slide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-out-up {
+  animation: fade-out-up 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-fade-in-slide {
+  animation: fade-in-slide 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Staggered animations for messages */
+@keyframes message-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-appear {
+  animation: message-appear 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInBlur {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(-2px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Font Size Settings */
+:root[data-font-size="small"] .markdown-content {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+:root[data-font-size="small"] .markdown-content h1 {
+  font-size: 1.5rem;
+}
+
+:root[data-font-size="small"] .markdown-content h2 {
+  font-size: 1.25rem;
+}
+
+:root[data-font-size="small"] .markdown-content h3 {
+  font-size: 1.125rem;
+}
+
+:root[data-font-size="medium"] .markdown-content {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+:root[data-font-size="medium"] .markdown-content h1 {
+  font-size: 1.875rem;
+}
+
+:root[data-font-size="medium"] .markdown-content h2 {
+  font-size: 1.5rem;
+}
+
+:root[data-font-size="medium"] .markdown-content h3 {
+  font-size: 1.25rem;
+}
+
+:root[data-font-size="large"] .markdown-content {
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+:root[data-font-size="large"] .markdown-content h1 {
+  font-size: 2.25rem;
+}
+
+:root[data-font-size="large"] .markdown-content h2 {
+  font-size: 1.875rem;
+}
+
+:root[data-font-size="large"] .markdown-content h3 {
+  font-size: 1.5rem;
+}
+
+:root[data-font-size="extra-large"] .markdown-content {
+  font-size: 1.25rem;
+  line-height: 1.8;
+}
+
+:root[data-font-size="extra-large"] .markdown-content h1 {
+  font-size: 2.5rem;
+}
+
+:root[data-font-size="extra-large"] .markdown-content h2 {
+  font-size: 2rem;
+}
+
+:root[data-font-size="extra-large"] .markdown-content h3 {
+  font-size: 1.75rem;
+}
+
+/* Font Family Settings with Enhanced Rendering */
+:root[data-font-family="inter"] .markdown-content {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "ss02" 1;
+  letter-spacing: -0.011em;
+  /* Enhanced sharpness */
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+  -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
+}
+
+:root[data-font-family="atkinson"] .markdown-content {
+  font-family: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: 0.01em;
+  font-feature-settings: normal;
+  /* Enhanced sharpness - slightly stronger for maximum clarity */
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 0 0.5px rgba(255, 255, 255, 0.1);
+}
+
+:root[data-font-family="opendyslexic"] .markdown-content {
+  font-family: 'OpenDyslexic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  letter-spacing: 0.02em;
+  word-spacing: 0.05em;
+  line-height: 1.8;
+  font-feature-settings: normal;
+  /* Enhanced sharpness with extra clarity for dyslexic readers */
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.12);
+  text-shadow: 0 0 0.5px rgba(255, 255, 255, 0.15);
+}
+
+:root[data-font-family="literata"] .markdown-content {
+  font-family: 'Literata', Georgia, 'Times New Roman', serif;
+  font-optical-sizing: auto;
+  letter-spacing: 0.005em;
+  font-feature-settings: "liga" 1, "calt" 1;
+  /* Enhanced sharpness for serif font */
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+  -webkit-text-stroke: 0.4px rgba(0, 0, 0, 0.08);
+}
+
+:root[data-font-family="system"] .markdown-content {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: normal;
+  font-feature-settings: normal;
+  /* Enhanced sharpness */
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+  -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure code blocks maintain monospace font regardless of content font */
+.markdown-content pre,
+.markdown-content code {
+  font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Consolas', 'Courier New', monospace !important;
+  letter-spacing: normal;
+  /* Enhanced sharpness for code */
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeSpeed;
+  font-smooth: always;
+}
+
+/* Enable word wrapping for code blocks to prevent horizontal scrolling */
+.markdown-content pre code {
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* Additional sharpness enhancements for all text content */
+.markdown-content {
+  /* Improve text contrast and sharpness */
+  image-rendering: crisp-edges;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  /* Prevent text from appearing blurry during animations */
+  will-change: auto;
+}
+
+/* Enhanced sharpness for headings */
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+  font-smooth: always;
+  -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+
+/* Enhanced sharpness for bold text */
+.markdown-content strong,
+.markdown-content b {
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  font-weight: 600;
+  -webkit-text-stroke: 0.3px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced sharpness for links */
+.markdown-content a {
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
+  text-rendering: optimizeLegibility;
+}
