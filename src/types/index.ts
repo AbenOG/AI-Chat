@@ -21,6 +21,41 @@ export interface UserSettings {
     font_family?: 'inter' | 'atkinson' | 'opendyslexic' | 'literata' | 'system' | null
 }
 
+export interface MCPServer {
+    id: number
+    user_id: number
+    name: string
+    transport_type: 'stdio' | 'sse' | 'streamable_http'
+    command?: string
+    args?: string // JSON array
+    env?: string // JSON object
+    url?: string
+    enabled: boolean
+    created_at: string
+    updated_at: string
+}
+
+export interface MCPTool {
+    name: string
+    description?: string
+    inputSchema: any
+    serverId?: number
+    serverName?: string
+}
+
+export interface MCPResource {
+    uri: string
+    name: string
+    description?: string
+    mimeType?: string
+}
+
+export interface MCPPrompt {
+    name: string
+    description?: string
+    arguments?: Array<{ name: string; description?: string; required?: boolean }>
+}
+
 export interface QuotedText {
     text: string
     messageId: string

@@ -250,6 +250,27 @@ export function initDatabase() {
     // Create index for faster embedding lookups
     db.exec(`CREATE INDEX IF NOT EXISTS idx_embeddings_chunk ON document_embeddings(chunk_id)`)
 
+    // MCP servers table
+    db.exec(`
+        CREATE TABLE IF NOT EXISTS mcp_servers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            name TEXT NOT NULL,
+            transport_type TEXT NOT NULL CHECK(transport_type IN ('stdio', 'sse', 'streamable_http')),
+            command TEXT,
+            args TEXT,
+            env TEXT,
+            url TEXT,
+            enabled BOOLEAN DEFAULT 1,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )
+    `)
+
+    // Create index for faster MCP server lookups
+    db.exec(`CREATE INDEX IF NOT EXISTS idx_mcp_servers_user ON mcp_servers(user_id)`)
+
     console.log('Database initialized successfully')
 }
 

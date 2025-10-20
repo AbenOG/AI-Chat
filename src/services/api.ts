@@ -1,4 +1,4 @@
-import type { Message, User, UserSettings } from '@/types'
+import type { Message, User, UserSettings, MCPServer, MCPTool, MCPResource, MCPPrompt } from '@/types'
 
 const API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001/api'
 
@@ -409,6 +409,215 @@ class ApiService {
 
         if (!res.ok) {
             throw new Error('Failed to search documents')
+        }
+
+        return res.json()
+    }
+
+    // MCP Server Management
+    async getMCPServers(): Promise<{ servers: MCPServer[] }> {
+        const res = await fetch(`${API_URL}/mcp/servers`, {
+            credentials: 'include'
+        })
+
+        if (!res.ok) {
+            throw new Error('Failed to get MCP servers')
+        }
+
+        return res.json()
+    }
+
+    async getMCPServer(serverId: number): Promise<MCPServer> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}`, {
+            credentials: 'include'
+        })
+
+        if (!res.ok) {
+            throw new Error('Failed to get MCP server')
+        }
+
+        return res.json()
+    }
+
+    async createMCPServer(config: {
+        name: string
+        transport_type: 'stdio' | 'sse' | 'streamable_http'
+        command?: string
+        args?: string
+        env?: string
+        url?: string
+        enabled?: boolean
+    }): Promise<{ serverId: number }> {
+        const res = await fetch(`${API_URL}/mcp/servers`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(config)
+        })
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({ error: 'Failed to create MCP server' }))
+            throw new Error(errorData.error || 'Failed to create MCP server')
+        }
+
+        return res.json()
+    }
+
+    async updateMCPServer(serverId: number, updates: Partial<{
+        name: string
+        transport_type: 'stdio' | 'sse' | 'streamable_http'
+        command: string
+        args: string
+        env: string
+        url: string
+        enabled: boolean
+    }>): Promise<{ success: boolean }> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(updates)
+        })
+
+        if (!res.ok) {
+            throw new Error('Failed to update MCP server')
+        }
+
+        return res.json()
+    }
+
+    async deleteMCPServer(serverId: number): Promise<{ success: boolean }> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        })
+
+        if (!res.ok) {
+            throw new Error('Failed to delete MCP server')
+        }
+
+        return res.json()
+    }
+
+    async testMCPConnection(config: {
+        name: string
+        transport_type: 'stdio' | 'sse' | 'streamable_http'
+        command?: string
+        args?: string
+        env?: string
+        url?: string
+    }): Promise<{ success: boolean; error?: string }> {
+        const res = await fetch(`${API_URL}/mcp/test`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(config)
+        })
+
+        if (!res.ok) {
+            throw new Error('Failed to test MCP connection')
+        }
+
+        return res.json()
+    }
+
+    // MCP Tools
+    async getMCPServerTools(serverId: number): Promise<{ tools: MCPTool[] }> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}/tools`, {
+            credentials: 'include'
+        })
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({ error: 'Failed to get MCP tools' }))
+            throw new Error(errorData.error || 'Failed to get MCP tools')
+        }
+
+        return res.json()
+    }
+
+    async callMCPTool(serverId: number, toolName: string, args: any): Promise<any> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}/tools/${toolName}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ arguments: args })
+        })
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({ error: 'Failed to call MCP tool' }))
+            throw new Error(errorData.error || 'Failed to call MCP tool')
+        }
+
+        return res.json()
+    }
+
+    async getAllMCPTools(): Promise<{ tools: MCPTool[] }> {
+        const res = await fetch(`${API_URL}/mcp/tools`, {
+            credentials: 'include'
+        })
+
+        if (!res.ok) {
+            throw new Error('Failed to get all MCP tools')
+        }
+
+        return res.json()
+    }
+
+    // MCP Resources
+    async getMCPServerResources(serverId: number): Promise<{ resources: MCPResource[] }> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}/resources`, {
+            credentials: 'include'
+        })
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({ error: 'Failed to get MCP resources' }))
+            throw new Error(errorData.error || 'Failed to get MCP resources')
+        }
+
+        return res.json()
+    }
+
+    async readMCPResource(serverId: number, uri: string): Promise<any> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}/resources/read`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ uri })
+        })
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({ error: 'Failed to read MCP resource' }))
+            throw new Error(errorData.error || 'Failed to read MCP resource')
+        }
+
+        return res.json()
+    }
+
+    // MCP Prompts
+    async getMCPServerPrompts(serverId: number): Promise<{ prompts: MCPPrompt[] }> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}/prompts`, {
+            credentials: 'include'
+        })
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({ error: 'Failed to get MCP prompts' }))
+            throw new Error(errorData.error || 'Failed to get MCP prompts')
+        }
+
+        return res.json()
+    }
+
+    async getMCPPrompt(serverId: number, promptName: string, args?: any): Promise<any> {
+        const res = await fetch(`${API_URL}/mcp/servers/${serverId}/prompts/${promptName}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({ arguments: args })
+        })
+
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({ error: 'Failed to get MCP prompt' }))
+            throw new Error(errorData.error || 'Failed to get MCP prompt')
         }
 
         return res.json()

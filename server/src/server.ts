@@ -52,6 +52,21 @@ import { searchWeb } from './search.js'
 import { documentWorker } from './worker.js'
 import { generateQueryEmbedding } from './embeddings.js'
 import db from './database.js'
+import {
+    getUserMCPServers,
+    getMCPServer,
+    createMCPServer,
+    updateMCPServer,
+    deleteMCPServer,
+    listMCPTools,
+    callMCPTool,
+    listMCPResources,
+    readMCPResource,
+    listMCPPrompts,
+    getMCPPrompt,
+    testMCPConnection,
+    getAllUserMCPTools
+} from './mcp.js'
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -287,6 +302,224 @@ app.delete('/api/docs/failed', authenticateToken, async (req, res) => {
     } catch (error) {
         console.error('Delete failed documents error:', error)
         res.status(500).json({ error: 'Failed to delete failed documents' })
+    }
+})
+
+// MCP routes (all require authentication)
+// List user's MCP servers
+app.get('/api/mcp/servers', authenticateToken, (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const servers = getUserMCPServers(userId)
+        res.json({ servers })
+    } catch (error) {
+        console.error('List MCP servers error:', error)
+        res.status(500).json({ error: 'Failed to list MCP servers' })
+    }
+})
+
+// Get a single MCP server
+app.get('/api/mcp/servers/:id', authenticateToken, (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        const server = getMCPServer(serverId, userId)
+        
+        if (!server) {
+            return res.status(404).json({ error: 'MCP server not found' })
+        }
+        
+        res.json(server)
+    } catch (error) {
+        console.error('Get MCP server error:', error)
+        res.status(500).json({ error: 'Failed to get MCP server' })
+    }
+})
+
+// Create a new MCP server
+app.post('/api/mcp/servers', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const { name, transport_type, command, args, env, url, enabled } = req.body
+        
+        if (!name || !transport_type) {
+            return res.status(400).json({ error: 'Name and transport_type are required' })
+        }
+        
+        const serverId = createMCPServer(userId, {
+            name,
+            transport_type,
+            command,
+            args,
+            env,
+            url,
+            enabled: enabled !== undefined ? enabled : true
+        })
+        
+        res.json({ serverId })
+    } catch (error) {
+        console.error('Create MCP server error:', error)
+        res.status(500).json({ error: 'Failed to create MCP server' })
+    }
+})
+
+// Update an MCP server
+app.put('/api/mcp/servers/:id', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        const updates = req.body
+        
+        updateMCPServer(serverId, userId, updates)
+        res.json({ success: true })
+    } catch (error) {
+        console.error('Update MCP server error:', error)
+        res.status(500).json({ error: 'Failed to update MCP server' })
+    }
+})
+
+// Delete an MCP server
+app.delete('/api/mcp/servers/:id', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        
+        deleteMCPServer(serverId, userId)
+        res.json({ success: true })
+    } catch (error) {
+        console.error('Delete MCP server error:', error)
+        res.status(500).json({ error: 'Failed to delete MCP server' })
+    }
+})
+
+// Test MCP server connection
+app.post('/api/mcp/test', authenticateToken, async (req, res) => {
+    try {
+        const { name, transport_type, command, args, env, url } = req.body
+        
+        if (!name || !transport_type) {
+            return res.status(400).json({ error: 'Name and transport_type are required' })
+        }
+        
+        const result = await testMCPConnection({
+            name,
+            transport_type,
+            command,
+            args,
+            env,
+            url,
+            enabled: true
+        })
+        
+        res.json(result)
+    } catch (error) {
+        console.error('Test MCP connection error:', error)
+        res.status(500).json({ error: 'Failed to test MCP connection' })
+    }
+})
+
+// List tools from a specific MCP server
+app.get('/api/mcp/servers/:id/tools', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        
+        const tools = await listMCPTools(userId, serverId)
+        res.json({ tools })
+    } catch (error) {
+        console.error('List MCP tools error:', error)
+        res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to list MCP tools' })
+    }
+})
+
+// Call a tool on an MCP server
+app.post('/api/mcp/servers/:id/tools/:toolName', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        const toolName = req.params.toolName
+        const args = req.body.arguments || {}
+        
+        const result = await callMCPTool(userId, serverId, toolName, args)
+        res.json(result)
+    } catch (error) {
+        console.error('Call MCP tool error:', error)
+        res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to call MCP tool' })
+    }
+})
+
+// List resources from a specific MCP server
+app.get('/api/mcp/servers/:id/resources', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        
+        const resources = await listMCPResources(userId, serverId)
+        res.json({ resources })
+    } catch (error) {
+        console.error('List MCP resources error:', error)
+        res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to list MCP resources' })
+    }
+})
+
+// Read a resource from an MCP server
+app.post('/api/mcp/servers/:id/resources/read', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        const { uri } = req.body
+        
+        if (!uri) {
+            return res.status(400).json({ error: 'URI is required' })
+        }
+        
+        const result = await readMCPResource(userId, serverId, uri)
+        res.json(result)
+    } catch (error) {
+        console.error('Read MCP resource error:', error)
+        res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to read MCP resource' })
+    }
+})
+
+// List prompts from a specific MCP server
+app.get('/api/mcp/servers/:id/prompts', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        
+        const prompts = await listMCPPrompts(userId, serverId)
+        res.json({ prompts })
+    } catch (error) {
+        console.error('List MCP prompts error:', error)
+        res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to list MCP prompts' })
+    }
+})
+
+// Get a prompt from an MCP server
+app.post('/api/mcp/servers/:id/prompts/:promptName', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const serverId = parseInt(req.params.id)
+        const promptName = req.params.promptName
+        const args = req.body.arguments
+        
+        const result = await getMCPPrompt(userId, serverId, promptName, args)
+        res.json(result)
+    } catch (error) {
+        console.error('Get MCP prompt error:', error)
+        res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to get MCP prompt' })
+    }
+})
+
+// Get all tools from all enabled servers
+app.get('/api/mcp/tools', authenticateToken, async (req, res) => {
+    try {
+        const userId = (req as AuthRequest).userId!
+        const tools = await getAllUserMCPTools(userId)
+        res.json({ tools })
+    } catch (error) {
+        console.error('Get all MCP tools error:', error)
+        res.status(500).json({ error: 'Failed to get MCP tools' })
     }
 })
 
