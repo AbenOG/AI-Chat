@@ -45,7 +45,7 @@ Full-stack TypeScript application: React + Vite frontend with an Express backend
 - **Syntax Highlighting**: Beautiful code display for all artifact types
 - **Sandboxed Execution**: Safe, isolated environment for running code
 
-### 🔌 Model Context Protocol (MCP)
+### 🔌 Model Context Protocol (MCP) [Experimental]
 - **MCP Server Support**: Connect to local and remote MCP servers
 - **Multiple Transports**: stdio (local process), SSE, and Streamable HTTP
 - **Tools Integration**: Access external tools from MCP servers
