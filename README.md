@@ -19,7 +19,7 @@ Full-stack TypeScript application: React + Vite frontend with an Express backend
 ### 1. Install Dependencies
 
 ```bash
-npm ci
+bun install
 ```
 
 ### 2. Configure Environment
@@ -42,13 +42,13 @@ Open two terminals:
 
 **Terminal 1 - Frontend (Vite dev server):**
 ```bash
-npm run dev
+bun run dev
 ```
 Runs on `http://localhost:5173`
 
 **Terminal 2 - Backend (Express server):**
 ```bash
-npm run server:dev
+bun run server:dev
 ```
 Runs on `http://localhost:3001`
 
@@ -85,12 +85,12 @@ Runs on `http://localhost:3001`
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start Vite dev server (frontend) |
-| `npm run server:dev` | Start Express server in watch mode |
-| `npm run server` | Start Express server (no watch) |
-| `npm run build` | Type-check and build frontend |
-| `npm run preview` | Preview production build |
-| `npm run lint` | Lint the codebase |
+| `bun run dev` | Start Vite dev server (frontend) |
+| `bun run server:dev` | Start Express server in watch mode |
+| `bun run server` | Start Express server (no watch) |
+| `bun run build` | Type-check and build frontend |
+| `bun run preview` | Preview production build |
+| `bun run lint` | Lint the codebase |
 
 ## Project Structure
 
@@ -123,8 +123,7 @@ aichatvtwo/
 
 ### Prerequisites
 
-- Node.js 20+
-- npm
+- Bun 1.0+ (or Node.js 20+ with npm)
 - Persistent storage for database and uploads
 
 ### GitHub Actions CI
@@ -148,7 +147,7 @@ The project includes a CI workflow (`.github/workflows/ci.yml`) that:
 
 2. **Build the frontend:**
    ```bash
-   npm run build
+   bun run build
    ```
    This creates a `dist/` folder with static assets.
 
@@ -158,7 +157,7 @@ The project includes a CI workflow (`.github/workflows/ci.yml`) that:
 
 4. **Run the backend:**
    ```bash
-   npm run server
+   bun run server
    ```
    - Ensure `server/database/` is writable
    - Consider using PM2 or similar for process management
@@ -215,5 +214,5 @@ MIT
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Run `npm run lint` and `npm run build`
+4. Run `bun run lint` and `bun run build`
 5. Submit a pull request
