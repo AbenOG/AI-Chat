@@ -32,3 +32,8 @@ server/database/uploads/
 *.njsproj
 *.sln
 *.sw?
+
+# Others
+.cursorignore
+.cursorrules
+.cursor
