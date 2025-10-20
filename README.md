@@ -45,6 +45,15 @@ Full-stack TypeScript application: React + Vite frontend with an Express backend
 - **Syntax Highlighting**: Beautiful code display for all artifact types
 - **Sandboxed Execution**: Safe, isolated environment for running code
 
+### 🔌 Model Context Protocol (MCP)
+- **MCP Server Support**: Connect to local and remote MCP servers
+- **Multiple Transports**: stdio (local process), SSE, and Streamable HTTP
+- **Tools Integration**: Access external tools from MCP servers
+- **Resource Access**: Read files, databases, and APIs via MCP resources
+- **Prompt Templates**: Use pre-defined prompts from MCP servers
+- **Per-User Configuration**: Each user manages their own MCP servers
+- **Connection Testing**: Verify MCP server connectivity before saving
+
 ### 🔐 Security & Privacy
 - **User Authentication**: Secure JWT-based auth with HTTP-only cookies
 - **Encrypted Storage**: AES-256-GCM encryption for API keys
@@ -262,6 +271,49 @@ The project includes a CI workflow (`.github/workflows/ci.yml`) that:
 - Ensure persistent volumes for database and uploads
 - Set all required environment variables
 
+## Model Context Protocol (MCP)
+
+AI Chat supports the [Model Context Protocol](https://modelcontextprotocol.io), allowing you to extend AI capabilities by connecting to MCP servers.
+
+### What is MCP?
+
+MCP is an open protocol that enables AI applications to securely access external tools, data sources, and services. Think of it as a universal adapter that lets AI models interact with your local files, databases, APIs, and more.
+
+### Setting Up MCP Servers
+
+1. **Navigate to Settings** → **MCP Servers** (Alt+6)
+2. **Choose a transport type:**
+   - **stdio**: Run MCP servers as local processes (e.g., Node.js, Python scripts)
+   - **SSE**: Connect to remote servers via Server-Sent Events
+   - **Streamable HTTP**: Modern HTTP-based transport for remote servers
+
+3. **Example: Local File System Access**
+   ```json
+   Name: File System
+   Transport: stdio
+   Command: npx
+   Args: ["-y", "@modelcontextprotocol/server-filesystem", "/path/to/directory"]
+   ```
+
+4. **Test the connection** before saving
+5. **Enable/disable servers** as needed
+
+### Available MCP Servers
+
+Popular MCP servers you can use:
+- **@modelcontextprotocol/server-filesystem**: Access local files
+- **@modelcontextprotocol/server-github**: GitHub integration
+- **@modelcontextprotocol/server-postgres**: PostgreSQL database access
+- **@modelcontextprotocol/server-sqlite**: SQLite database access
+- **Custom servers**: Build your own using the [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
+
+### How It Works
+
+Once configured, MCP tools become available to the AI during conversations. The AI can:
+- Call tools to perform actions (e.g., read files, query databases)
+- Access resources (e.g., file contents, API responses)
+- Use prompt templates defined by MCP servers
+
 ## Security
 
 - 🔐 User API keys are encrypted at rest using AES-256-GCM
@@ -286,6 +338,7 @@ See `SECURITY.md` for vulnerability reporting.
 - TypeScript
 - SQLite (better-sqlite3)
 - OpenAI SDK
+- Model Context Protocol SDK
 - JWT authentication
 - Multer for file uploads
 
