@@ -6,13 +6,59 @@ Full-stack TypeScript application: React + Vite frontend with an Express backend
 
 ## Features
 
-- 🤖 Multi-provider AI chat (OpenAI, Anthropic, OpenRouter, etc.)
-- 📄 Document processing (PDF, DOCX, XLSX) with RAG
-- 🔍 Semantic search with embeddings
-- 🔐 Secure authentication with JWT
-- 📚 Study mode with interactive quizzes
-- 🌐 Web search integration
-- 🎨 Modern, responsive UI with Tailwind CSS
+### 🤖 AI & Chat
+- **Multi-Provider Support**: OpenAI, Anthropic, OpenRouter, Ollama, and any OpenAI-compatible API
+- **40+ AI Models**: GPT-4o, GPT-5, Claude, Gemini, Grok, DeepSeek, Qwen, and more
+- **Three Chat Modes**:
+  - 💬 **Chat Mode**: Standard conversational AI
+  - 🔬 **Research Mode**: Deep research with web search, planning, and synthesis
+  - 📚 **Study Mode**: Interactive learning with quizzes and hints
+- **Web Search Integration**: Real-time web search with source citations
+- **Streaming Responses**: Smooth, real-time message streaming
+- **Smart Chat Titles**: AI-generated conversation titles
+- **Incognito Mode**: Chat without saving history
+- **Context Management**: Automatic token counting and cost tracking
+
+### 📄 Document Intelligence (RAG)
+- **Document Upload**: PDF, DOCX, XLSX/XLS support (up to 15MB per file)
+- **Semantic Search**: Vector embeddings with cosine similarity
+- **Smart Chunking**: Intelligent text segmentation with overlap
+- **Document Querying**: Ask questions about your uploaded documents
+- **Storage Management**: 200MB per-user storage with usage tracking
+- **Background Processing**: Async document processing with status tracking
+
+### 🎨 User Experience
+- **Modern UI**: Beautiful, responsive design with Tailwind CSS
+- **Dark Theme**: Eye-friendly dark mode interface
+- **Smooth Animations**: Framer Motion powered transitions
+- **Code Highlighting**: Syntax highlighting for 180+ languages
+- **Math Rendering**: LaTeX/KaTeX support for mathematical notation
+- **Markdown Support**: Full GFM (GitHub Flavored Markdown)
+- **Message Editing**: Quote and reference previous messages
+- **Artifact Viewer**: Split-pane view for code, documents, and visualizations
+
+### 🔐 Security & Privacy
+- **User Authentication**: Secure JWT-based auth with HTTP-only cookies
+- **Encrypted Storage**: AES-256-GCM encryption for API keys
+- **Per-User Isolation**: Complete data separation between users
+- **Secure Cookies**: sameSite=strict with secure flag in production
+- **No Key Exposure**: API keys never sent to frontend
+
+### ⚙️ Customization
+- **Custom System Prompts**: Personalize AI behavior
+- **Provider Settings**: Configure multiple AI providers
+- **Model Selection**: Choose from 40+ models with pricing info
+- **Embedding Models**: Multiple OpenAI embedding options
+- **Display Name**: Personalized user experience
+- **Onboarding Wizard**: Guided setup for new users
+
+### 🛠️ Developer Features
+- **TypeScript**: Full type safety across frontend and backend
+- **SQLite Database**: Lightweight, embedded database
+- **RESTful API**: Clean API architecture
+- **Real-time Processing**: WebSocket-style streaming
+- **Error Handling**: Comprehensive error management
+- **CI/CD Ready**: GitHub Actions workflow included
 
 ## Quick Start
 
